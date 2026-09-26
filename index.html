@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#efefed" name="theme-color"/>
+<meta content="A collection of feelings. Mrs. GREEN APPLE, reimagined as an interactive 3D record collection by Tay Miyuu." name="description"/>
+<title>MGA — The Listening Archive</title>
+<link href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23111'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%23eee'/%3E%3C/svg%3E" rel="icon"/>
+  <script type="module" crossorigin src="./assets/index-Dl7wIlhk.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/three-CEYpPdHc.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-DTisQA2u.css">
+</head>
+<body>
+<div aria-label="ลากหรือเลื่อนเพื่อเลือก CD ใช้ลูกศรเปลี่ยนเพลง และ F เพื่อพลิกแผ่น" id="scene" role="group" tabindex="0"></div>
+<div class="scene-fallback" hidden id="scene-fallback"><img alt="Selected album cover"/></div>
+<div aria-hidden="true" class="grain"></div>
+
+<div class="ui">
+  <header class="topnav">
+    <a aria-label="MGA Listening Archive home" class="wordmark" href="./">MGA</a>
+    <nav aria-label="Main navigation">
+      <button class="nav-link active" id="room-tab">Records</button>
+      <button class="nav-link" id="collection-open">Index<sup class="collection-count">26</sup><svg aria-hidden="true" class="chevron" viewBox="0 0 12 8"><path d="m1 1.5 5 5 5-5"/></svg></button>
+      <button class="nav-link muted" id="about-open">About</button>
+    </nav>
+    <a aria-label="Instagram tay.miyuu__" class="instagram" href="https://www.instagram.com/tay.miyuu__?stkn=dnFvc2ZrNjAzaGZr&amp;utm_source=qr" rel="noopener noreferrer" target="_blank"><span class="ig-long">tay.miyuu__</span><span class="ig-short">IG</span><svg aria-hidden="true" viewBox="0 0 12 12"><path d="M2.5 9.5 9.5 2.5M4 2.5h5.5V8"/></svg></a>
+  </header>
+
+  <section aria-label="Selected record" aria-live="polite" class="record-info">
+    <div class="record-heading">
+      <h1 id="selected-title">ANTENNA</h1>
+      <button aria-label="บันทึกเพลงโปรด" aria-pressed="false" class="favorite" id="favorite" title="บันทึกเพลงโปรด"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/></svg></button>
+    </div>
+    <dl>
+      <div><dt>Artist</dt><dd>Mrs. GREEN APPLE</dd></div>
+      <div><dt>Title</dt><dd id="selected-english">Antenna</dd></div>
+      <div><dt>Edition</dt><dd>Piano sessions</dd></div>
+    </dl>
+  </section>
+
+  <div aria-hidden="true" class="stage-slot" id="stage-slot"></div>
+
+  <section aria-label="Music player" class="player">
+    <div class="player-left">
+      <span class="label">Record</span>
+      <span class="counter" id="browse-counter">01 — 26</span>
+      <div aria-hidden="true" class="disc-pagination" id="disc-pagination"><span></span></div>
+      <span class="label hint">Drag or scroll to explore</span>
+    </div>
+
+    <div class="player-center">
+      <div class="now-row"><span aria-hidden="true" class="eq"><i></i><i></i><i></i></span><span class="label" id="now-label">ON THE TURNTABLE</span></div>
+      <h3 id="player-title">ANTENNA</h3>
+      <div class="transport">
+        <button aria-label="สุ่มเพลง" aria-pressed="false" class="ctl side" id="shuffle" title="สุ่มเพลง">Shuffle</button>
+        <button aria-label="เพลงก่อนหน้า" class="ctl" id="previous" title="เพลงก่อนหน้า">Prev</button>
+        <button aria-label="เล่นเพลง" class="ctl play" id="play" title="เล่นเพลง">Play</button>
+        <button aria-label="เพลงถัดไป" class="ctl" id="next" title="เพลงถัดไป">Next</button>
+        <button aria-label="เล่นเพลงซ้ำ" aria-pressed="false" class="ctl side" id="repeat" title="เล่นเพลงซ้ำ">Repeat</button>
+      </div>
+      <div class="timeline"><time id="current-time">0:00</time><input aria-label="ตำแหน่งเพลง" id="seek" max="100" min="0" step="0.1" type="range" value="0"/><time id="duration">4:47</time></div>
+    </div>
+
+    <div class="player-right">
+      <button aria-pressed="false" class="ctl" id="flip-disc" title="พลิกแผ่น (F)">Flip</button>
+      <button aria-label="เปิดหรือปิดการเคลื่อนไหว" aria-pressed="true" class="ctl" id="motion-toggle" title="เปิดหรือปิดการเคลื่อนไหว"><span class="motion-name">Motion</span> <span class="motion-state">On</span></button>
+      <div class="volume"><button aria-label="ปิดเสียง" aria-pressed="false" class="ctl" id="mute" title="ปิดเสียง">Sound</button><input aria-label="ระดับเสียง" id="volume" max="100" min="0" type="range" value="70"/></div>
+      <button aria-label="เปิดรายการเพลง" class="ctl" id="queue-open" title="เปิดรายการเพลง">List</button>
+    </div>
+  </section>
+</div>
+
+<dialog class="collection-dialog" id="collection-dialog">
+  <div class="dialog-header">
+    <div><span class="label">Index — Pick a feeling</span><h2>The Collection</h2></div>
+    <button aria-label="ปิดรายการเพลง" class="ctl close-dialog" title="ปิดรายการเพลง">Close</button>
+  </div>
+  <div class="collection-tools">
+    <input aria-label="ค้นหาเพลง" id="search" placeholder="ค้นหาเพลง / Find a record" type="search"/>
+    <button aria-pressed="false" class="ctl" id="favorites-filter">Favorites</button>
+  </div>
+  <div class="track-list" id="track-list"></div>
+  <p class="label collection-footnote">Mrs. GREEN APPLE — Personal piano collection</p>
+</dialog>
+
+<dialog class="about-dialog" id="about-dialog">
+  <div class="dialog-header">
+    <div><span class="label">About</span><h2>A little room.<br/>A lot of love.</h2></div>
+    <button aria-label="ปิด" class="ctl close-dialog" title="ปิด">Close</button>
+  </div>
+  <p>พื้นที่เล็ก ๆ สำหรับเพลงโปรดของ Tay Miyuu<br/>ลากแผ่นเพื่อเลือกเพลง แล้วกดเล่นเพื่อฟังได้เลย</p>
+  <p class="about-small">26 MIDI piano arrangements from your personal library, played with Salamander Grand Piano samples. These are instrumental arrangements, not the original vocal recordings.</p>
+  <p class="about-small">Album artwork: Mrs. GREEN APPLE official / Apple Music.<br/>Piano: Alexander Holm · CC BY 3.0.<br/>Unofficial fan project. All music and artwork belong to their respective owners.</p>
+  <a class="about-link" href="https://a24.raviklaassens.com/" rel="noopener noreferrer" target="_blank">Creative inspiration: A24 by Ravi Klaassens</a>
+  <p class="label shortcuts">ลูกศรซ้าย/ขวา เปลี่ยนเพลง · Space เล่น/หยุด · M ปิดเสียง · F พลิกแผ่น</p>
+</dialog>
+
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+</body>
+</html>
